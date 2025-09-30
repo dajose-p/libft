@@ -6,7 +6,7 @@
 /*   By: danjose- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 22:30:05 by danjose-          #+#    #+#             */
-/*   Updated: 2025/09/29 18:34:30 by danjose-         ###   ########.fr       */
+/*   Updated: 2025/09/30 12:30:11 by danjose-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int		ft_isprint(int c);
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 #endif
