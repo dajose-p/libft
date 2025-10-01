@@ -6,7 +6,7 @@
 /*   By: danjose- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 22:30:05 by danjose-          #+#    #+#             */
-/*   Updated: 2025/10/01 18:56:19 by danjose-         ###   ########.fr       */
+/*   Updated: 2025/10/01 19:26:48 by danjose-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
+int     ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif
