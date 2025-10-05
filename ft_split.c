@@ -3,138 +3,104 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: danjose- <danjose-@student.42madrid.c      +#+  +:+       +#+        */
+/*   By: danjose- <danjose-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 22:10:49 by danjose-          #+#    #+#             */
-/*   Updated: 2025/10/05 02:11:05 by danjose-         ###   ########.fr       */
+/*   Created: 2025/10/05 18:09:50 by danjose-          #+#    #+#             */
+/*   Updated: 2025/10/05 18:09:53 by danjose-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**free_mem(char **split, int count)
+int	count_words(char const *s, char c)
 {
 	int	i;
+	int	words;
 
 	i = 0;
-	while (i < count)
+	words = 0;
+	while (s[i] != '\0')
 	{
-		free(split[i]);
+		if (s[i] != c && (i == 0 || s[i - 1] == c))
+			words++;
 		i++;
 	}
-	return (split);
+	return (words);
 }
 
-int     count_words(char const *s, char c)
+int	word_length(char const *s, char c, int i)
 {
-        int     i;
-        int     count;
+	int	len;
 
-        i = 0;
-        count = 0;
-        while (s[i])
-        {
-                if (s[i] != c && ((i == 0) || s[i - 1] == c))
-                        count++;
-                i++;
-        }
-        return (count);
-}
-
-char	**inner_malloc(char const *s, char c, char **split)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	i = 0;
-	j = 0;
-	count = 0;
-	while (s[i])
+	len = 0;
+	while (s[i] != '\0' && s[i] != c)
 	{
-		if (s[i] != c && ((i == 0) || (s[i - 1] == c)))
-		{
-			split[count - 1] = ft_calloc(j, sizeof(char));
-			if (!split)
-				return(free_mem(split, count - 1));
-			count++;
-			j = 0;
-		}
+		len++;
 		i++;
-		j++;
 	}
-	split[count - 1] = ft_calloc(j, sizeof(char));
-	if (!split)
-		return(free_mem(split, count));
-	return (split);
+	return (len);
 }
 
-char	**do_split(char const *s, char c, char **split)
+void	free_mem(char **arr, int i)
 {
-	int	i;
-	int	j;
-	int	count;
-	int	k;
+	while (i-- > 0)
+		free(arr[i]);
+	free(arr);
+}
 
+char	**allocate_memory(char const *s, char c, int word_count)
+{
+	char	**arr;
+	int		i;
+	int		j;
+
+	arr = malloc((word_count + 1) * sizeof(char *));
+	if (arr == NULL)
+		return (NULL);
 	i = 0;
 	j = 0;
-	k = 0;
-	count = 0;
-	while (s[i])
+	while (i < word_count)
 	{
-		if (s[i] != c && ((i == 0) || (s[i - 1] == c)))
+		while (s[j] == c)
+			j++;
+		arr[i] = malloc((word_length(s, c, j) + 1) * sizeof(char));
+		if (arr[i] == NULL)
 		{
-			count++;
-			j = 0;
+			free_mem(arr, i);
+			return (NULL);
 		}
-		if (!(s[i + 1] != c && ((i + 1 == 0) || (s[i] == c))))
-			split[count - 1][j] = s[i];
-		else
-			split[count - 1][j] = '\0';
+		j += word_length(s, c, j);
 		i++;
-		j++;
 	}
-	return (split);
+	arr[i] = NULL;
+	return (arr);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**split;
-	int	i;
-	int	j;
+	char	**arr;
+	int		word_count;
+	int		i;
+	int		j;
+	int		k;
 
+	if (s == NULL)
+		return (NULL);
+	word_count = count_words(s, c);
+	arr = allocate_memory(s, c, word_count);
+	if (arr == NULL)
+		return (NULL);
 	i = 0;
-	j = 0;
-	split = ft_calloc(count_words(s, c) + 1, sizeof(char *));
-	if (!split)
-		return (NULL);
-	split = inner_malloc(s, c, split);
-	if (!split)
-		return (NULL);
-	split = do_split(s, c, split);
-	split[count_words(s, c)] = NULL;
-	return (split);
+	k = 0;
+	while (i < word_count)
+	{
+		while (s[k] == c)
+			k++;
+		j = 0;
+		while (s[k] != c && s[k] != '\0')
+			arr[i][j++] = s[k++];
+		arr[i][j] = '\0';
+		i++;
+	}
+	return (arr);
 }
-
-/*
-#include <stdio.h>
-
-int	main(int argc, char **argv)
-{
-	int i = 0;
-	char	**split;
-
-	split = malloc(4 * sizeof(char *));
-	while (i < 4)
-	{
-		split[i] = malloc(5);
-		i++;
-	}
-	i = 0;
-	split = ft_split(argv[1], *argv[2]);
-	while (split[i] != NULL)
-	{
-		printf("Word [%i]: %s\n", i, split[i]);
-		i++;
-	}
-}*/
