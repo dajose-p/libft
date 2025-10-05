@@ -6,7 +6,7 @@
 /*   By: danjose- <danjose-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:12:27 by danjose-          #+#    #+#             */
-/*   Updated: 2025/10/05 20:14:34 by danjose-         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:14:37 by danjose-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ char	*ft_itoa(int n)
 	i = 0;
 	res = NULL;
 	res = min_case(res, n);
-	if (res)
-		return (res);
+	if (!res)
+		return (NULL);
 	if (n < 0)
 	{
 		n = -n;
