@@ -6,88 +6,70 @@
 /*   By: danjose- <danjose-@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 18:12:27 by danjose-          #+#    #+#             */
-/*   Updated: 2025/10/05 23:14:37 by danjose-         ###   ########.fr       */
+/*   Updated: 2025/10/06 17:42:49 by danjose-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	num_len(int n)
+int	nbr_len(int n)
 {
 	int	i;
 
 	i = 0;
-	while (n / 10 > 0)
-	{
+	if (n == 0)
+		return (1);
+	if (n < 0)
 		i++;
-		n /= 10;
+	while (n != 0)
+	{
+		n = n / 10;
+		i++;
 	}
-	i++;
 	return (i);
 }
 
-char	*do_itoa(char *res, int len, int n, int i)
+void	*fill_array(char *arr, size_t size, int n_aux, int n)
 {
-	int	aux_l;
-
-	aux_l = len;
-	while (i < len)
+	while (size > 0)
 	{
-		res[len - 1] = (n % 10) + '0';
-		n /= 10;
-		len--;
+		arr[size - 1] = (n_aux % 10) + '0';
+		n_aux = n_aux / 10;
+		size--;
 	}
-	res[aux_l] = '\0';
-	return (res);
+	if (n < 0)
+		arr[size] = '-';
+	return (arr);
 }
 
-char	*min_case(char *res, int n)
+static void	*mem_alloc(char *arr, size_t len)
 {
-	if (n == -2147483648)
-	{
-		res = ft_calloc(12, sizeof(char));
-		if (!res)
-			return (NULL);
-		res[0] = '-';
-		res[1] = '2';
-		res[2] = '1';
-		res[3] = '4';
-		res[4] = '7';
-		res[5] = '4';
-		res[6] = '8';
-		res[7] = '3';
-		res[8] = '6';
-		res[9] = '4';
-		res[10] = '8';
-		res[11] = '\0';
-		return (res);
-	}
-	return (NULL);
+	arr = malloc((len + 1) * sizeof(char));
+	if (arr == NULL)
+		return (NULL);
+	else
+		return (arr);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*res;
-	int		len;
-	int		i;
+	char	*arr;
+	int		size;
+	int		n_aux;
 
-	len = num_len(n);
-	i = 0;
-	res = NULL;
-	res = min_case(res, n);
-	if (!res)
+	n_aux = n;
+	arr = NULL;
+	size = nbr_len(n);
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	if (n == 0)
+		return (ft_strdup("0"));
+	arr = mem_alloc(arr, size);
+	if (arr == NULL)
 		return (NULL);
 	if (n < 0)
-	{
-		n = -n;
-		len = num_len(n) + 1;
-		i++;
-	}
-	res = ft_calloc(len + 1, sizeof(char));
-	if (!res)
-		return (NULL);
-	if (i > 0)
-		res[0] = '-';
-	res = do_itoa(res, len, n, i);
-	return (res);
+		n_aux = -n_aux;
+	arr[size] = '\0';
+	arr = fill_array(arr, size, n_aux, n);
+	return (arr);
 }
