@@ -1,4 +1,5 @@
 NAME = libft.a
+BON_NAME = .bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror 
 SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c \
@@ -7,17 +8,23 @@ SOURCES = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_st
 	  ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
 	  ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 	  ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
+BON_SOURCES = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c
 OBJECTS = $(SOURCES:.c=.o)
+BOBJECTS = $(BON_SOURCES: .c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	ar crs $(NAME) $(OBJECTS)
-
+	ar rcs $(NAME) $(OBJECTS)
+$(BON_NAME): $(OBJECTS) $(BOBJECTS)
+	ar rcs	$(BON_NAME) $(OBJECTS) $(BOBJECTS)
+	ar rcs $(NAME) $(OBJECTS) $(BOBJECTS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
+bonus: $(BON_NAME)
+
 clean:
 	rm -rf $(OBJECTS)
 fclean: clean
-	rm -rf $(NAME)
+	rm -rf $(NAME) $(BON_NAME)
 re: fclean all
