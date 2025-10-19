@@ -78,10 +78,4 @@ Contributions are welcome in the form of suggestions or improvements for functio
 
 ---
 
-## License
-
-This project is for educational purposes at **School 42** and has no formal license.
-
----
-
 *Made with ❤️ by danjose-*
