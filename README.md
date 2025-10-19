@@ -1,6 +1,6 @@
 # libft
 
-![42 Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/42_School_logo.svg/1200px-42_School_logo.svg)
+![42 Logo]([https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/42_School_logo.svg/1200px-42_School_logo.svg](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXfAZMOWHDQ3DKE63A9jWhIqQaKcKqUIXvzg&s))
 
 `libft` is a custom C library project from **School 42**. The goal of this project is to reimplement standard C library functions and create additional useful functions for future projects. This library is commonly used as a foundation in other 42 projects.
 
@@ -86,4 +86,4 @@ This project is for educational purposes at **School 42** and has no formal lice
 
 ---
 
-*Made with ❤️ by a 42 student.*
+*Made with ❤️ by danjose-.*
