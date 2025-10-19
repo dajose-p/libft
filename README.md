@@ -34,7 +34,7 @@ The library is written in **C** and compiled into a static library (`libft.a`).
 Clone the repository and compile the library:
 
 ```bash
-git clone https://github.com/<your-username>/libft.git
+git clone https://github.com/dajose-p/libft.git
 cd libft
 make
 ```
@@ -54,7 +54,7 @@ Include the header in your project:
 Link the library when compiling:
 
 ```bash
-gcc main.c -L. -lft -o my_program
+cc main.c -L. -lft -o my_program
 ```
 
 ---
@@ -86,4 +86,4 @@ This project is for educational purposes at **School 42** and has no formal lice
 
 ---
 
-*Made with ❤️ by danjose-.*
+*Made with ❤️ by danjose-*
